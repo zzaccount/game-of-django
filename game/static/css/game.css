@@ -1,0 +1,37 @@
+/* 主页背景图片 */
+.ac-game-menu{
+
+  height: 100vh;
+  
+  background:url("/static/image/menu/bgc.jpg") no-repeat;
+  background-size: cover;  
+  user-select: none; /* 页面不能被选中 */
+}
+
+/* 主页菜单样式 */
+.ac-game-menu-field{
+  width: 16vw;
+  position: relative;
+  top: 38vh;
+  left: 38vw;
+  align-items: center;
+
+}
+.ac-game-menu-field-item{
+
+  backdrop-filter: blur(1px); /* 毛玻璃效果 */
+  color: wheat;
+  font-size: 4vh;
+  height: 7vh;
+  width: 10vw;
+  font-style: italic;
+  text-align: center;
+  border-radius: 10px;
+  margin: 2vh;
+  letter-spacing: 0.5vw;
+  cursor: pointer;
+}
+.ac-game-menu-field-item:hover{
+  transform:scale(1.2);
+  transition:100ms
+}
