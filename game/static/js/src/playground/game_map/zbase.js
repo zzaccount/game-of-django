@@ -12,7 +12,13 @@ class GameMap extends AcGameObject{
     this.playground.$playground.append(this.$canvas)
     
   }
-
+  /* 动态修改长宽 */
+  resize(){
+    this.ctx.canvas.width = this.playground.width
+    this.ctx.canvas.height = this.playground.height
+    this.ctx.fillStyle = "rgba(0,0,0,1)"
+    this.ctx.fillRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height)
+  }
   start(){
   }
   update(){

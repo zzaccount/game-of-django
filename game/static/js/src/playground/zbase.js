@@ -4,7 +4,8 @@ class AcGamePlayground{
   constructor(root){
     this.root = root
     this.$playground = $(`<div class="ac-game-playground"></div>`)
-
+    /* 打开后再加载高度  */
+    this.root.$ac_game.append(this.$playground)
     this.start()
   }
   /* 随机获取颜色 */
@@ -13,15 +14,30 @@ class AcGamePlayground{
     return colors[Math.floor(Math.random()*5)]
   }
   start(){
+    let outer = this
     this.hide()
+
+    $(window).resize(function(){
+      outer.resize()
+    })
+  }
+
+  resize(){
+    this.width = this.$playground.width()
+    this.height = this.$playground.height()
+    let unit = Math.min(this.width / 16,this.height / 9)
+    this.width = unit * 16
+    this.height = unit * 9
+    this.scale = this.height
+
+    if (this.game_map) this.game_map.resize()
   }
   show(){ /* 打开playground界面 */
 
 
     this.$playground.show()
+    this.resize()
 
-    /* 打开后再加载高度  */
-    this.root.$ac_game.append(this.$playground)
     
     this.width = this.$playground.width() /* 存放宽度高度数据 */
     this.height = this.$playground.height()
@@ -31,11 +47,11 @@ class AcGamePlayground{
 
     /* 玩家类 */
     this.players = []
-    this.players.push(new Player(this,this.width/2,this.height/2,this.height*0.05,"white",this.height*0.15,true))
+    this.players.push(new Player(this,this.width/2/this.scale,0.5,0.05,"white",0.15,true))
     
     /* 创建NPC */
     for(let i =0;i<5;i++) {
-      this.players.push(new Player(this,this.width/2,this.height/2,this.height*0.05,this.get_random_color(),this.height*0.15,false))
+      this.players.push(new Player(this,this.width/2/this.scale,0.5,0.05,this.get_random_color(),0.15,false))
 
     }
   }
