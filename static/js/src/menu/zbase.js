@@ -35,11 +35,12 @@ class AcGameMenu{
     this.$single_mode.click(function(){
       /* jQuery的监听点击函数 */
       outer.hide()
-      outer.root.playground.show()
+      outer.root.playground.show("single mode")
     })
     this.$multi_mode.click(function(){
       /* jQuery的监听点击函数 */
-      console.log("点击按钮2");
+      outer.hide()
+      outer.root.playground.show("multi mode")
 
     })
     this.$settings.click(function(){

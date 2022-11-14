@@ -8,6 +8,15 @@ class AcGameObject{
 
     this.hascalled_start = false /* 是否执行过start函数 */
     this.timedelta = 0  // 当前帧距离上一帧的时间间隔
+    this.uuid = this.create_uuit()
+  }
+  create_uuit(){
+    let res = ""
+    for (let i=0;i<8;i++) {
+      let x = parseInt(Math.floor(Math.random()*10))
+      res += x
+    }
+    return res
   }
   start(){
 

@@ -14,7 +14,7 @@ class FireBall extends AcGameObject {
     this.speed = speed
     this.move_length = move_length
     this.damage = damage
-    this.epx = 0.01
+    this.eps = 0.01
   }
 
   start() {
@@ -59,6 +59,7 @@ class FireBall extends AcGameObject {
     player.is_attacked(angel,this.damage)
     this.destory()
   }
+
   render() {
     let scale = this.Playground.scale
     /* canvas绘制火球 */

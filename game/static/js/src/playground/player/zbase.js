@@ -1,5 +1,6 @@
 class Player extends AcGameObject{
-  constructor(Playground,x,y,radius,color,speed,is_me){
+  constructor(Playground,x,y,radius,color,speed,character,username,photo){
+    console.log(character,username,photo);
     super()
 
     this.Playground = Playground
@@ -16,7 +17,9 @@ class Player extends AcGameObject{
     this.move_length = 0 /* 要移动的距离 */
     this.color = color
     this.speed = speed
-    this.is_me = is_me
+    this.character = character
+    this.username = username
+    this.photo = photo
     this.eps = 0.01
     /* 摩擦力 */
     this.friction = 0.9
@@ -24,18 +27,18 @@ class Player extends AcGameObject{
     this.spent_time = 0
 
     this.cur_skill = null;
-    if (this.is_me){
+    if (this.character !== "robot"){
       this.img = new Image();
-      this.img.src = this.Playground.root.settings.photo
+      this.img.src = this.photo
     }
    
     this.start()
   }
 
   start(){
-    if (this.is_me){
+    if (this.character === "me"){
       this.add_listening_events()
-    }else{
+    }else if (this.character === "robot"){
       let tx = Math.random() * this.Playground.width/this.Playground.scale
       let ty = Math.random() * this.Playground.height/this.Playground.scale
       this.move_to(tx,ty)
@@ -133,7 +136,7 @@ class Player extends AcGameObject{
 
   update_move(){/* 更新玩家移动 */
     this.spent_time += this.timedelta/1000
-    if(!this.is_me&&this.spent_time > 2 && Math.random()<1/250.0){
+    if(this.character === "robot"&&this.spent_time > 2 && Math.random()<1/250.0){
       /* 都攻击自己 */
       let player = this.Playground.players[0]
       //let player = this.Playground.players[Math.floor(Math.random()*this.Playground.players.length)]
@@ -156,7 +159,7 @@ class Player extends AcGameObject{
         this.vx = this.vy = 0
         
         /* 如果是AI */
-        if(!this.is_me){
+        if(this.character === "robot"){
           let tx = Math.random() * this.Playground.width / this.Playground.scale
           let ty = Math.random() * this.Playground.height / this.Playground.scale
           this.move_to(tx,ty)
@@ -179,13 +182,13 @@ class Player extends AcGameObject{
     for(let i =0;i<this.Playground.players.length;i++){
       if (this.Playground.players[i] === this){
         this.Playground.players.splice(i,1)
-        if(this.is_me) this.Playground.game_map.$canvas.off();
+        
       }
     }
   }
   render(){
     let scale = this.Playground.scale
-    if (this.is_me){
+    if (this.character !== "robot"){
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.arc(this.x * scale, this.y *scale, this.radius *scale, 0, Math.PI * 2, false);
