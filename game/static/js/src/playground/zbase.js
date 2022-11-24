@@ -34,9 +34,9 @@ class AcGamePlayground {
   }
   show(mode) { /* 打开playground界面 */
     let outer = this
-
+    outer.resize()
     this.$playground.show()
-    this.resize()
+    
 
 
     this.width = this.$playground.width() /* 存放宽度高度数据 */
@@ -45,6 +45,12 @@ class AcGamePlayground {
     /* 地图类 */
     this.game_map = new GameMap(this)
 
+    this.mode = mode
+
+    /* 玩家状态 提示文本 */
+    this.state = "waiting"
+    this.notice_board = new NoticeBoard(this)
+    this.player_count = 0;
     /* 玩家类 */
     this.players = []
     this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.15, "me",this.root.settings.username,this.root.settings.photo))
@@ -62,7 +68,7 @@ class AcGamePlayground {
       }
     }
 
-  }
+  } 
   hide() { /* 关闭playground界面 */
     this.$playground.hide()
   }

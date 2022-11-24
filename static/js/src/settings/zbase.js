@@ -100,6 +100,7 @@ class Settings {
     console.log("登录函数");
     let outer = this
     let username = this.$login_username.val()
+    
     let password = this.$login_password.val()
     this.$login_error_message.empty()
 
@@ -140,7 +141,6 @@ class Settings {
         password_confirm,password_confirm
       },
       success:function(resp){
-        console.log(resp);
         if (resp.result === "success")
         {
           location.reload()
@@ -188,6 +188,7 @@ class Settings {
 
         if (resp.result === "success") {
           outer.username = resp.username
+          console.log(resp);
           outer.photo = resp.photo
 
           outer.hide()
